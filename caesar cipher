@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to encrypt the text using Caesar Cipher
+void encrypt(char *text, int shift) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char ch = text[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch = ((ch - 'a' + shift) % 26) + 'a';
+            text[i] = ch;
+        }
+        // spaces or non-alphabet characters are not changed
+    }
+}
+
+// Function to decrypt the text using Caesar Cipher
+void decrypt(char *text, int shift) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char ch = text[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch = ((ch - 'a' - shift + 26) % 26) + 'a';
+            text[i] = ch;
+        }
+    }
+}
+
+int main() {
+    char text[] = "sree sanjai";
+    int shift = 3;
+
+    printf("Original text : %s\n", text);
+
+    // Encrypt the text
+    encrypt(text, shift);
+    printf("Encrypted text: %s\n", text);
+
+    // Decrypt the text
+    decrypt(text, shift);
+    printf("Decrypted text: %s\n", text);
+
+    return 0;
+}
