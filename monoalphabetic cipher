@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define the standard and substitution alphabets
+char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+char key[]      = "phqgiumeaylnofdxjkrcvstzwb"; // example shuffled key
+
+// Function to encrypt the plaintext
+void encrypt(char *text, char *ciphertext) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char ch = text[i];
+
+        if (ch >= 'a' && ch <= 'z') {
+            int index = ch - 'a';
+            ciphertext[i] = key[index];
+        } else {
+            ciphertext[i] = ch; // Preserve space or non-letter characters
+        }
+    }
+    ciphertext[strlen(text)] = '\0'; // Null-terminate the string
+}
+
+// Function to decrypt the ciphertext
+void decrypt(char *ciphertext, char *plaintext) {
+    for (int i = 0; ciphertext[i] != '\0'; i++) {
+        char ch = ciphertext[i];
+
+        if (ch >= 'a' && ch <= 'z') {
+            for (int j = 0; j < 26; j++) {
+                if (key[j] == ch) {
+                    plaintext[i] = 'a' + j;
+                    break;
+                }
+            }
+        } else {
+            plaintext[i] = ch;
+        }
+    }
+    plaintext[strlen(ciphertext)] = '\0'; // Null-terminate the string
+}
+
+int main() {
+    char text[] = "my name is sree sanjay";
+    char encrypted[100];
+    char decrypted[100];
+
+    printf("Original text : %s\n", text);
+
+    encrypt(text, encrypted);
+    printf("Encrypted text: %s\n", encrypted);
+
+    decrypt(encrypted, decrypted);
+    printf("Decrypted text: %s\n", decrypted);
+
+    return 0;
+}
